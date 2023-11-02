@@ -4,12 +4,14 @@ const todoButton = document.querySelector(`.todo__form--button`);
 const filterOption = document.querySelector(`.filter-todo`)
 const todoList= document.querySelector(`.todo__container-list`);
 // Event listeners
+document.addEventListener(`DOMContentLoaded`, getTodos);
 todoButton.addEventListener(`click`, addTodo);
 todoList.addEventListener(`click`, deleteCheck);
 filterOption.addEventListener(`click`, filterTodo);
 // Functions
 
 function addTodo(event){
+  
     //Previene que se suba el formulario
     event.preventDefault();
     //create todo DIV    
@@ -46,6 +48,7 @@ const item = e.target;
 if(item.classList[0] === "delete__btn"){
     const todo = item.parentElement;
     todo.classList.add("animacion");
+    removeLocalTodos(todo)
     todo.addEventListener("transitionend", function(){
         todo.remove();
     });
@@ -93,5 +96,50 @@ function saveLocalTodos(todo) {
       todos = JSON.parse(localStorage.getItem("todos"));
   }
   todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodos(){
+  console.log("HOLAA")
+  let todos;
+if (localStorage.getItem("todos") === null) {
+    todos = [];
+} else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+}
+todos.forEach(function(todo){
+   //create todo DIV    
+   const todoDiv = document.createElement("div");
+   todoDiv.classList.add ("todo");
+   //create list
+   const newTodo = document.createElement("li");
+   newTodo.innerText = todo;
+   newTodo.classList.add ("todo__item");
+   newTodo.classList.add ("item");
+   todoDiv.appendChild(newTodo);
+   //Completed button
+   const completedButton = document.createElement(`button`);
+   completedButton.innerHTML = `<i class="fas fa-check"></i>`;
+   completedButton.classList.add("complete__btn")
+   todoDiv.appendChild(completedButton);
+ 
+   //Delete button
+   const deleteButton = document.createElement(`button`);
+   deleteButton.innerHTML = `<i class="fas fa-trash"></i>`;
+   deleteButton.classList.add("delete__btn")
+   todoDiv.appendChild(deleteButton);
+   //appendToList
+   todoList.appendChild(todoDiv);
+})
+}
+function removeLocalTodos(todo){
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+      todos = [];
+  } else {
+      todos = JSON.parse(localStorage.getItem("todos"));
+    };
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }

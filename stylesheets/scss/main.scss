@@ -1,0 +1,126 @@
+@import "_var";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: $colour__bkg;
+    color: $font-color;
+    font-family: 'Open Sans', sans-serif;
+    min-height: 100vw;
+}
+header{
+    font-size: 1.5rem;
+}
+.todo{  
+    margin:0.5rem;
+    background: $font-color;
+    color: rgb(14, 14, 15);
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    li{
+        flex: 1;
+    }   
+    &__header, &__form{
+        min-height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__form{
+        &--input, &--button{
+            padding:0.5rem;
+            font-size: 1.5rem;
+            border:none;
+            background-color: white;
+        }
+        &--button{
+            color: var--($bkg-2);
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3 ease;
+            &:hoover{
+                background-color: var--($bkg-2);
+                color: white;
+            }
+        }
+    }
+
+    &__container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &-list{
+            min-width: 30%;
+            list-style: none;
+        }
+    }  
+   
+}
+.item{    
+    padding: 0rem 0.5rem;
+}
+.complete__btn, .delete__btn{
+    background-color: $bkg-2;
+    color: $font-color;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+}
+.complete__btn:hover{
+    color: $color-checked;
+}
+.delete__btn{
+    background-color: coral;
+}
+.fa-trash, .fa-check{
+    pointer-events: none;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+.animacion{
+    transition-duration: 500ms;
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border:none
+}
+.select{
+    margin:1rem;
+    position: relative;
+    overflow: hidden;
+    &:hover::after{
+        background: white;
+        color: $bkg-2;
+    }
+    &::after{
+        content:'\25BC';
+        position: absolute;
+        background: $bkg-2;
+        top: 0;
+        right: 0;
+        padding: 1rem;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+}
+select{
+    color: $bkg-2;
+    width: 10rem;
+    cursor: pointer;
+    padding: 1rem;
+}
